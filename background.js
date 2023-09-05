@@ -11,9 +11,18 @@ chrome.commands.onCommand.addListener((command) => {
 });
 
 function convertAndCopy() {
+  function spongeCase(text) {
+    return text
+      .split("")
+      .map((char) => {
+        return Math.random() < 0.5 ? char.toLowerCase() : char.toUpperCase();
+      })
+      .join("");
+  }
+
   const selection = window.getSelection().toString();
   if (selection) {
-    const converted = selection.toUpperCase();
+    const converted = spongeCase(selection);
     navigator.clipboard
       .writeText(converted)
       .then(() => {
