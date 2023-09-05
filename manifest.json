@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Text Conversion Extension",
+  "version": "1.0",
+  "description": "Converts highlighted text to uppercase and copies it to the clipboard",
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "commands",
+    "scripting",
+    "tabs",
+    "storage"
+  ],
+  "icons": {
+    "48": "icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "execute_browser_action": {
+      "suggested_key": "Ctrl+Shift+Q",
+      "description": "Convert and copy text to uppercase"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
