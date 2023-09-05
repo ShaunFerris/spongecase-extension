@@ -8,8 +8,7 @@
     "clipboardWrite",
     "commands",
     "scripting",
-    "tabs",
-    "storage"
+    "notifications"
   ],
   "icons": {
     "48": "icon.png"

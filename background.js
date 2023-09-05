@@ -7,6 +7,12 @@ chrome.commands.onCommand.addListener((command) => {
         function: convertAndCopy
       });
     });
+    chrome.notifications.create({
+      title: "test",
+      type: "basic",
+      message: "testing",
+      iconUrl: "icon.png"
+    });
   }
 });
 
