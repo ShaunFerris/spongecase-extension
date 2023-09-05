@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Text Conversion Extension",
+  "name": "spOnGeCaSe Converter",
   "version": "1.0",
-  "description": "Converts highlighted text to uppercase and copies it to the clipboard",
+  "description": "Converts highlighted text to the case scheme from the mocking spongebob meme",
   "permissions": [
     "activeTab",
     "clipboardWrite",
@@ -18,9 +18,12 @@
     "service_worker": "background.js"
   },
   "commands": {
-    "execute_browser_action": {
-      "suggested_key": "Ctrl+Shift+Q",
-      "description": "Convert and copy text to uppercase"
+    "convert_selection": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Q",
+        "mac": "Command+Shift+Q"
+      },
+      "description": "Convert and copy text to spongecase"
     }
   },
   "content_scripts": [
