@@ -1,17 +1,24 @@
+const successNotif = {
+  title: "Successful spOnGEcAsE conversion!",
+  type: "basic",
+  message:
+    "The text you highlighted has been converted and copied to the clipboard, go ahead and paste it somewhere",
+  iconUrl: "icon.png"
+};
+
 chrome.commands.onCommand.addListener((command) => {
   if (command === "convert_selection") {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const activeTab = tabs[0];
-      chrome.scripting.executeScript({
-        target: { tabId: activeTab.id },
-        function: convertAndCopy
-      });
-    });
-    chrome.notifications.create({
-      title: "test",
-      type: "basic",
-      message: "testing",
-      iconUrl: "icon.png"
+      try {
+        chrome.scripting.executeScript({
+          target: { tabId: activeTab.id },
+          function: convertAndCopy
+        });
+        chrome.notifications.create(successNotif);
+      } catch (error) {
+        chrome.notifications.create();
+      }
     });
   }
 });
@@ -39,6 +46,7 @@ function convertAndCopy() {
           "Spongecase converter: Error converting selection: ",
           error
         );
+        throw error;
       });
   } else {
     console.log("Spongecase converter: No text selected.");
