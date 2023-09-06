@@ -5,6 +5,7 @@
   "description": "Converts highlighted text to the case scheme from the mocking spongebob meme",
   "permissions": [
     "activeTab",
+    "tabs",
     "clipboardWrite",
     "commands",
     "scripting",
