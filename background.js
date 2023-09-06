@@ -29,7 +29,7 @@ chrome.commands.onCommand.addListener((command) => {
       chrome.scripting
         .executeScript({
           target: { tabId: activeTab.id },
-          func: convertAndCopy
+          func: convertTwo
         })
         .then(() => {
           chrome.notifications.create(responseNotifications.success);
@@ -41,7 +41,7 @@ chrome.commands.onCommand.addListener((command) => {
   }
 });
 
-function convertAndCopy() {
+async function convertTwo() {
   function spongeCase(text) {
     return text
       .split("")
@@ -50,22 +50,10 @@ function convertAndCopy() {
       })
       .join("");
   }
-
   const selection = window.getSelection().toString();
   if (selection) {
     const converted = spongeCase(selection);
-    navigator.clipboard
-      .writeText(converted)
-      .then(() => {
-        console.log("Spongecase converter: Selection copied!", converted);
-      })
-      .catch((error) => {
-        console.log(
-          "Spongecase converter: Error converting selection: ",
-          error
-        );
-      });
-  } else {
-    console.log("Spongecase converter: No text selected");
+    await navigator.clipboard.writeText(converted);
+    return "success";
   }
 }
