@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "spOnGeCaSe Converter",
-  "version": "1.0",
+  "version": "0.0.0.1",
   "description": "Converts highlighted text to the case scheme from the mocking spongebob meme",
   "permissions": [
     "activeTab",
@@ -12,7 +12,11 @@
     "notifications"
   ],
   "icons": {
-    "48": "icon.png"
+    "16": "/icons/icon16.png",
+    "32": "/icons/icon32.png",
+    "48": "/icons/icon48.png",
+    "128": "/icons/icon128.png",
+    "512": "/icons/icon512.png"
   },
   "background": {
     "service_worker": "background.js"

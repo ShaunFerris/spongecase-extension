@@ -54,20 +54,20 @@ const responseNotifications = {
     type: "basic",
     message:
       "The text you highlighted has been converted and copied to the clipboard, go ahead and paste it somewhere",
-    iconUrl: "icon.png"
+    iconUrl: "icons/icon128.png"
   },
   fail: {
     title: "Failed spOnGEcAsE conversion.",
     type: "basic",
     message:
       "There was an error converting selected text, try reloading the extension, or check the developer console for more information.",
-    iconUrl: "icon.png"
+    iconUrl: "icons/icon128.png"
   },
   noInput: {
     title: "No text selected",
     type: "basic",
     message:
       "You pushed the hotkey for the spongecase extension but had no text selected to convert",
-    iconUrl: "icon.png"
+    iconUrl: "/icons/icon128.png"
   }
 };
