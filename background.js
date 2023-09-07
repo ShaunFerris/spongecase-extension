@@ -1,27 +1,9 @@
-const responseNotifications = {
-  success: {
-    title: "Successful spOnGEcAsE conversion!",
-    type: "basic",
-    message:
-      "The text you highlighted has been converted and copied to the clipboard, go ahead and paste it somewhere",
-    iconUrl: "icon.png"
-  },
-  fail: {
-    title: "Failed spOnGEcAsE conversion.",
-    type: "basic",
-    message:
-      "There was an error converting selected text, try reloading the extension, or check the developer console for more information.",
-    iconUrl: "icon.png"
-  },
-  noInput: {
-    title: "No text selected",
-    type: "basic",
-    message:
-      "You pushed the hotkey for the spongecase extension but had no text selected to convert",
-    iconUrl: "icon.png"
-  }
-};
-
+/**
+ * Main code for the service worker.
+ * Sets an event listener for the hotkey defined in manifest.json and runs the
+ * text conversion function when it fires. Also throws the user a notification
+ * based on the response from the conversion function.
+ */
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "convert_selection") {
     const activeTab = await getTab();
@@ -29,12 +11,15 @@ chrome.commands.onCommand.addListener(async (command) => {
       target: { tabId: activeTab.id },
       func: convertAndCopy
     });
-    if (response[0].result === "success") {
-      chrome.notifications.create(responseNotifications.success);
-    }
+    const notifMsg = responseNotifications[response[0].result];
+    chrome.notifications.create(notifMsg);
   }
 });
 
+/**
+ * Functions for getting the current browser tab, string conversion/copying
+ * and object storing the options for outcome notifications.
+ */
 async function getTab() {
   const queryOptions = { active: true, currentWindow: true };
   const [activeTab] = await chrome.tabs.query(queryOptions);
@@ -62,3 +47,27 @@ async function convertAndCopy() {
     }
   } else return "noInput";
 }
+
+const responseNotifications = {
+  success: {
+    title: "Successful spOnGEcAsE conversion!",
+    type: "basic",
+    message:
+      "The text you highlighted has been converted and copied to the clipboard, go ahead and paste it somewhere",
+    iconUrl: "icon.png"
+  },
+  fail: {
+    title: "Failed spOnGEcAsE conversion.",
+    type: "basic",
+    message:
+      "There was an error converting selected text, try reloading the extension, or check the developer console for more information.",
+    iconUrl: "icon.png"
+  },
+  noInput: {
+    title: "No text selected",
+    type: "basic",
+    message:
+      "You pushed the hotkey for the spongecase extension but had no text selected to convert",
+    iconUrl: "icon.png"
+  }
+};
