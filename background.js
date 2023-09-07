@@ -22,31 +22,21 @@ const responseNotifications = {
   }
 };
 
-//TODO: rewrite this as async, it's a mess
-chrome.commands.onCommand.addListener((command) => {
+chrome.commands.onCommand.addListener(async (command) => {
   if (command === "convert_selection") {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const activeTab = tabs[0];
-      chrome.scripting.executeScript({
-        target: { tabId: activeTab.id },
-        func: () => console.log("it worked")
-      });
-      chrome.scripting
-        .executeScript({
-          target: { tabId: activeTab.id },
-          func: convertAndCopy
-        })
-        .then(() => {
-          chrome.notifications.create(responseNotifications.success);
-        })
-        .catch(() => {
-          chrome.notifications.create(responseNotifications.fail);
-        });
+    const activeTab = await getTab();
+    const out = await chrome.scripting.executeScript({
+      target: { tabId: activeTab.id },
+      func: convertAndCopy
+    });
+    await chrome.scripting.executeScript({
+      target: { tabId: activeTab.id },
+      func: (msg) => console.log(msg),
+      args: [out]
     });
   }
 });
 
-//TODO: add an async function for getting current tab to simplify the listener
 async function getTab() {
   const queryOptions = { active: true, currentWindow: true };
   const [activeTab] = await chrome.tabs.query(queryOptions);
