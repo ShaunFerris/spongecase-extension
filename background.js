@@ -25,15 +25,13 @@ const responseNotifications = {
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "convert_selection") {
     const activeTab = await getTab();
-    const out = await chrome.scripting.executeScript({
+    const response = await chrome.scripting.executeScript({
       target: { tabId: activeTab.id },
       func: convertAndCopy
     });
-    await chrome.scripting.executeScript({
-      target: { tabId: activeTab.id },
-      func: (msg) => console.log(msg),
-      args: [out]
-    });
+    if (response[0].result === "success") {
+      chrome.notifications.create(responseNotifications.success);
+    }
   }
 });
 
@@ -55,7 +53,12 @@ async function convertAndCopy() {
   const selection = window.getSelection().toString();
   if (selection) {
     const converted = spongeCase(selection);
-    await navigator.clipboard.writeText(converted);
-    return "success";
-  }
+    try {
+      await navigator.clipboard.writeText(converted);
+      return "success";
+    } catch (error) {
+      console.log(error);
+      return "fail";
+    }
+  } else return "noInput";
 }
