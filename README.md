@@ -1,5 +1,5 @@
 # spongecase-extension
-![image](https://github.com/ShaunFerris/spongecase-extension/assets/119541650/0655b195-65d5-48f7-8601-0c09c726e9d6)
+![stoP-THAt-RiGHT-nOW](https://github.com/ShaunFerris/spongecase-extension/assets/119541650/0a43fa54-8535-449b-be06-cbd7287d2ab9)
 
 A simple Chrome browser extension that lets you mock people by copying their comments (or any other text) and converting it to "sPOnGecAsE".
 
